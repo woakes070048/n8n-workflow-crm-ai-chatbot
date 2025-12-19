@@ -143,14 +143,14 @@ Step A: Start ngrok Open your terminal and run (assuming n8n runs on port 5678):
 ```bash
 ngrok http 5678
 ```
-Step B: Get the URL Copy the HTTPS forwarding URL provided by ngrok, e.g., https://a1b2-c3d4.ngrok-free.app.
+Step B: Get the URL Copy the HTTPS forwarding URL provided by ngrok, e.g., https://a1b2-c3d4.ngrok-free.app.  
 
-Step C: Update n8n Webhook
+Step C: Update n8n Webhook  
 In the n8n canvas, find the node named Set Production WEBHOOK (or Set Test WEBHOOK).
-Update the url parameter field. Format:
-https://<your-ngrok-id>.ngrok-free.app/webhook/<your-n8n-webhook-uuid>
-(Note: You can find the <your-n8n-webhook-uuid> in the "When chat message received" trigger node).
-Execute the "Set Production WEBHOOK" node manually once to register this URL with the Zalo API.
+Update the url parameter field. Format:  
+https://<your-ngrok-id>.ngrok-free.app/webhook/<your-n8n-webhook-uuid>  
+(Note: You can find the <your-n8n-webhook-uuid> in the "When chat message received" trigger node).  
+Execute the "Set Production WEBHOOK" node manually once to register this URL with the Zalo API.  
 ⚠️ Warning: If you are using the free version of ngrok, the URL changes every time you restart the terminal. You must update the URL in n8n and re-execute the set-webhook node each time.
 
 ## 🎮 How It Works
