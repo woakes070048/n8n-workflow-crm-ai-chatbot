@@ -57,7 +57,7 @@ This project automates customer support and sales processes. It listens to messa
 ## 🏗 System Architecture
 
 The workflow runs on **n8n** (localhost) and uses **ngrok** to receive webhooks from the internet.
-https://res.cloudinary.com/vinhisreal/image/upload/v1766130994/CRM-n8n.drawio_yfppsc.png
+![Architecture](https://res.cloudinary.com/vinhisreal/image/upload/v1766130994/CRM-n8n.drawio_yfppsc.png)
 ## 📋 Prerequisites
 Before you begin, ensure you have:  
 n8n: Installed locally or via Docker.  
@@ -154,21 +154,21 @@ Execute the "Set Production WEBHOOK" node manually once to register this URL wit
 ⚠️ Warning: If you are using the free version of ngrok, the URL changes every time you restart the terminal. You must update the URL in n8n and re-execute the set-webhook node each time.
 
 ## 🎮 How It Works
-Ingestion: Upload a PDF to your connected Google Drive folder. n8n will detect it, extract text, and save vectors to Supabase.
-Chatting:
-User asks: "How much is the IELTS course?"
-Orchestrator detects Sales.
-Sales Agent queries Supabase -> Finds the price in the PDF -> Answers the user.
-Closing:
-User says: "I want to register."
-Orchestrator detects Billing.
-Billing Agent checks if Name/Phone is known. If not, it asks.
-Once confirmed, data is saved to Google Sheets.
+Ingestion: Upload a PDF to your connected Google Drive folder. n8n will detect it, extract text, and save vectors to Supabase.  
+Chatting:  
+User asks: "How much is the IELTS course?"  
+Orchestrator detects Sales.  
+Sales Agent queries Supabase -> Finds the price in the PDF -> Answers the user.  
+Closing:  
+User says: "I want to register."  
+Orchestrator detects Billing.  
+Billing Agent checks if Name/Phone is known. If not, it asks.  
+Once confirmed, data is saved to Google Sheets.  
 ## 🤝 Contributing
-Contributions are welcome!
-Fork the Project.
-Create your Feature Branch (git checkout -b feature/AmazingFeature).
-Commit your Changes (git commit -m 'Add some AmazingFeature').
-Push to the Branch (git push origin feature/AmazingFeature).
-Open a Pull Request.
+Contributions are welcome!  
+Fork the Project.  
+Create your Feature Branch (git checkout -b feature/AmazingFeature).  
+Commit your Changes (git commit -m 'Add some AmazingFeature').  
+Push to the Branch (git push origin feature/AmazingFeature).  
+Open a Pull Request.  
   
