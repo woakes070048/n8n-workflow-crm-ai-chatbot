@@ -60,12 +60,12 @@ The workflow runs on **n8n** (localhost) and uses **ngrok** to receive webhooks 
 ![Architecture](https://res.cloudinary.com/vinhisreal/image/upload/v1766130994/CRM-n8n.drawio_yfppsc.png)
 ## 📋 Prerequisites
 Before you begin, ensure you have:  
-n8n: Installed locally or via Docker.  
-Supabase Account: For PostgreSQL and Vector database.  
-OpenAI API Key: For GPT-4o-mini/GPT-3.5 and Embeddings.  
-Google Cloud Console: Enabled Drive API and Sheets API.  
-ngrok: Installed and authenticated.  
-Zalo OA (Zapps): To receive messages.  
+- n8n: Installed locally or via Docker.  
+- Supabase Account: For PostgreSQL and Vector database.  
+- OpenAI API Key: For GPT-4o-mini/GPT-3.5 and Embeddings.  
+- Google Cloud Console: Enabled Drive API and Sheets API.  
+- ngrok: Installed and authenticated.  
+- Zalo OA (Zapps): To receive messages.  
 ## 🗄 Database Setup (Supabase)
 Run the following SQL commands in your Supabase SQL Editor to initialize the required tables:
 SQL
@@ -138,31 +138,31 @@ OpenAI: Connection to your API Key.
 Postgres: Host, User, Password, Database (from Supabase Connection settings).
 Google Drive & Sheets: OAuth2 Client credentials.
 ### 3. Ngrok Setup (Important)
-Since n8n is running locally, Zalo cannot send webhooks to localhost. We use ngrok to tunnel the connection.
-Step A: Start ngrok Open your terminal and run (assuming n8n runs on port 5678):
+Since n8n is running locally, Zalo cannot send webhooks to localhost. We use ngrok to tunnel the connection.  
+- Step A: Start ngrok Open your terminal and run (assuming n8n runs on port 5678):
 ```bash
 ngrok http 5678
 ```
-Step B: Get the URL Copy the HTTPS forwarding URL provided by ngrok, e.g., https://a1b2-c3d4.ngrok-free.app.  
+- Step B: Get the URL Copy the HTTPS forwarding URL provided by ngrok, e.g., https://a1b2-c3d4.ngrok-free.app.  
 
-Step C: Update n8n Webhook  
-In the n8n canvas, find the node named Set Production WEBHOOK (or Set Test WEBHOOK).
-Update the url parameter field. Format:  
-https://<your-ngrok-id>.ngrok-free.app/webhook/<your-n8n-webhook-uuid>  
-(Note: You can find the <your-n8n-webhook-uuid> in the "When chat message received" trigger node).  
-Execute the "Set Production WEBHOOK" node manually once to register this URL with the Zalo API.  
+- Step C: Update n8n Webhook  
+  In the n8n canvas, find the node named Set Production WEBHOOK (or Set Test WEBHOOK).
+  Update the url parameter field. Format:  
+  https://<your-ngrok-id>.ngrok-free.app/webhook/<your-n8n-webhook-uuid>  
+( Note: You can find the <your-n8n-webhook-uuid> in the "When chat message received" trigger node).  
+  Execute the "Set Production WEBHOOK" node manually once to register this URL with the Zalo API.  
 ⚠️ Warning: If you are using the free version of ngrok, the URL changes every time you restart the terminal. You must update the URL in n8n and re-execute the set-webhook node each time.
 
 ## 🎮 How It Works
 Ingestion: Upload a PDF to your connected Google Drive folder. n8n will detect it, extract text, and save vectors to Supabase.  
 Chatting:  
-User asks: "How much is the IELTS course?"  
-Orchestrator detects Sales.  
-Sales Agent queries Supabase -> Finds the price in the PDF -> Answers the user.  
+- User asks: "How much is the IELTS course?"  
+- Orchestrator detects Sales.  
+- Sales Agent queries Supabase -> Finds the price in the PDF -> Answers the user.  
 Closing:  
-User says: "I want to register."  
-Orchestrator detects Billing.  
-Billing Agent checks if Name/Phone is known. If not, it asks.  
+- User says: "I want to register."  
+- Orchestrator detects Billing.  
+- Billing Agent checks if Name/Phone is known. If not, it asks.  
 Once confirmed, data is saved to Google Sheets.  
 ## 🤝 Contributing
 Contributions are welcome!  
