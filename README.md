@@ -53,9 +53,16 @@ This project automates customer support and sales processes. It listens to messa
 - **Sync Deletion:** If a file is deleted from Drive, its vectors are removed from the database to ensure accuracy.
 
 ---
+## 📸 Workflow Visuals
+Here are the actual n8n workflows implementing the logic described above.  
+### 1. CRM & Chatbot Logic
+This workflow handles the webhook, orchestrates the AI agents (Sales/Billing), and manages the conversation memory.
+![CRM Workflow](./assets/CRM-workflow.png)
 
+### 2. Data Sync & Vectorization
+This background workflow watches Google Drive for changes and keeps the Supabase Vector Store in sync.
+![Sync Workflow](./assets/Sync-DB.png)
 ## 🏗 System Architecture
-
 The workflow runs on **n8n** (localhost) and uses **ngrok** to receive webhooks from the internet.
 ![Architecture](https://res.cloudinary.com/vinhisreal/image/upload/v1766130994/CRM-n8n.drawio_yfppsc.png)
 ## 📋 Prerequisites
