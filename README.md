@@ -14,6 +14,7 @@ A comprehensive automation workflow designed for **Educational Centers (EduTech)
 
 - [Overview](#-overview)
 - [Key Features](#-key-features)
+- [Workflow Visuals](#-workflow-visuals)
 - [System Architecture](#-system-architecture)
 - [Prerequisites](#-prerequisites)
 - [Database Setup](#-database-setup-supabase)
