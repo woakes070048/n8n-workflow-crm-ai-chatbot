@@ -1,12 +1,14 @@
-# 🤖 EduTech CRM & AI Chatbot Automation
+# 🤖 Automated CRM & IT Support Ticket Agent
 
 ![n8n](https://img.shields.io/badge/n8n-Workflow-orange?style=flat-square&logo=n8n)
 ![OpenAI](https://img.shields.io/badge/AI-OpenAI_GPT_4-blue?style=flat-square&logo=openai)
 ![Supabase](https://img.shields.io/badge/Database-Supabase_PgVector-green?style=flat-square&logo=supabase)
-![ngrok](https://img.shields.io/badge/Tunnel-ngrok-black?style=flat-square&logo=ngrok)
+![Notion](https://img.shields.io/badge/Log-Notion-black?style=flat-square&logo=notion)
 ![License](https://img.shields.io/badge/License-MIT-purple?style=flat-square)
 
-A comprehensive automation workflow designed for **Educational Centers (EduTech)** using **n8n**. This system integrates an AI-powered Chatbot (RAG), automated CRM lead capture, and a dynamic document ingestion pipeline, all exposed to the public internet via **ngrok**.
+> [cite_start]**Project Timeline:** 08/2025 – 10/2025 [cite: 30]
+
+A centralized automation workflow designed to streamline IT Support and CRM operations. [cite_start]This system acts as a **central router** to classify user requests, dispatch them to specialized sub-agents, and maintain a synchronized knowledge base for automated troubleshooting[cite: 31, 32].
 
 ---
 
@@ -14,70 +16,68 @@ A comprehensive automation workflow designed for **Educational Centers (EduTech)
 
 - [Overview](#-overview)
 - [Key Features](#-key-features)
-- [Workflow Visuals](#-workflow-visuals)
 - [System Architecture](#-system-architecture)
 - [Prerequisites](#-prerequisites)
 - [Database Setup](#-database-setup-supabase)
 - [Installation & Configuration](#-installation--configuration)
-    - [1. Import Workflow](#1-import-workflow)
-    - [2. Configure Credentials](#2-configure-credentials)
-    - [3. Ngrok Setup (Important)](#3-ngrok-setup-important)
 - [How It Works](#-how-it-works)
-- [Contributing](#-contributing)
 
 ---
 
 ## 🔭 Overview
 
-This project automates customer support and sales processes. It listens to messages from Zalo (via webhook), uses OpenAI to classify intent, consults internal documents stored in Google Drive to answer questions, and automatically logs qualified leads into Google Sheets.
+This project was developed to automate the handling of incoming user inquiries (via Zalo/Webhooks). [cite_start]It utilizes **OpenAI** to classify requests into **Technical Support** or **Billing**, consults an internal knowledge base (RAG) for automated answers, and utilizes **Notion** to log system errors and track resolution status[cite: 31, 33].
 
 ---
 
 ## 🚀 Key Features
 
-### 🧠 **Intelligent Orchestrator**
-- **Intent Classification:** Uses AI to categorize messages into `Sales` (Inquiry), `Billing` (Purchase), or `Other` (Chit-chat).
-- **Entity Extraction:** Automatically extracts **Customer Name**, **Phone Number**, and **Course Interest**.
+### 🧠 **Central Routing System (Ticketing)**
+- **Intelligent Classification:** Acts as a central router to classify incoming user requests into distinct categories: **Technical Support** or **Billing**.
+- **Auto-Dispatch:** Automatically generates and dispatches support tickets to the appropriate specialized sub-agents based on the intent.
 
-### 📚 **RAG Sales Consultant**
-- **Knowledge Base:** Connected to Supabase Vector Store.
-- **Context Aware:** Remembers conversation history for natural interactions.
-- **Source:** Answers based on real-time PDF/Excel/Docx files from your Google Drive.
+### 📚 **Event-Driven ETL Pipeline (Knowledge Base)**
+- **Drive Monitoring:** Engineered an event-driven pipeline that monitors a designated Google Drive folder for new documentation.
+- [**Auto-Ingestion:** Ensures automatic file ingestion and synchronization with the system's knowledge base (Supabase Vector Store), allowing the AI to answer based on the latest internal documents.
 
-### 💼 **Automated Billing CRM**
-- **Smart Data Collection:** If a user wants to buy but hasn't provided a phone number, the AI politely asks for it.
-- **Sync:** Once data is complete, it appends the lead to **Google Sheets**.
-
-### 🔄 **Auto-Ingestion Pipeline**
-- **Drive Watcher:** Monitors a Google Drive folder for new files.
-- **Vectorization:** Automatically downloads, chunks, embeds, and stores document vectors.
-- **Sync Deletion:** If a file is deleted from Drive, its vectors are removed from the database to ensure accuracy.
+### 🛠 **Admin & Error Tracking**
+- **Notion Integration:** Utilizes **Notion** to log system errors and track the resolution status of complex tickets.
+- **Response Optimization:** Helps improve response time for end-user inquiries by organizing logs and status updates centrally.
 
 ---
-## 📸 Workflow Visuals
-Here are the actual n8n workflows implementing the logic described above.  
-### 1. CRM & Chatbot Logic
-This workflow handles the webhook, orchestrates the AI agents (Sales/Billing), and manages the conversation memory.
-![CRM Workflow](./assets/CRM-workflow.png)
 
-### 2. Data Sync & Vectorization
-This background workflow watches Google Drive for changes and keeps the Supabase Vector Store in sync.
-![Sync Workflow](./assets/Sync-DB.png)
 ## 🏗 System Architecture
-The workflow runs on **n8n** (localhost) and uses **ngrok** to receive webhooks from the internet.
-![Architecture](https://res.cloudinary.com/vinhisreal/image/upload/v1766130994/CRM-n8n.drawio_yfppsc.png)
+
+The workflow runs on **n8n** (localhost) and uses **ngrok** to expose webhooks to the public internet.
+
+1.  **Input:** User messages via Webhook (Zalo/Chat Interface).
+2.  **Processing:** n8n Orchestrator uses OpenAI to classify intent.
+3.  **Data & RAG:**
+    * **Supabase:** Stores vector embeddings of documents.
+    * **Google Drive:** Source of truth for documentation (ETL Pipeline).
+4.  **Output/Logging:**
+    * **Notion:** Logs errors and ticket status.
+    * **Response:** AI generates a context-aware reply to the user.
+
+---
+
 ## 📋 Prerequisites
-Before you begin, ensure you have:  
-- n8n: Installed locally or via Docker.  
-- Supabase Account: For PostgreSQL and Vector database.  
-- OpenAI API Key: For GPT-4o-mini/GPT-3.5 and Embeddings.  
-- Google Cloud Console: Enabled Drive API and Sheets API.  
-- ngrok: Installed and authenticated.  
-- Zalo OA (Zapps): To receive messages.  
+
+Before you begin, ensure you have:
+- **n8n**: Installed locally or via Docker.
+- **Supabase Account**: For PostgreSQL and Vector database.
+- **OpenAI API Key**: For GPT-4o-mini/GPT-3.5 and Embeddings.
+- **Google Cloud Console**: Enabled Drive API (for ETL pipeline).
+- **Notion API Key**: For logging system errors.
+- **ngrok**: Installed and authenticated.
+
+---
+
 ## 🗄 Database Setup (Supabase)
+
 Run the following SQL commands in your Supabase SQL Editor to initialize the required tables:
-SQL
-```bash
+
+```sql
 -- 1. Enable pgvector extension
 create extension if not exists vector;
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS n8n_chat_histories_crm (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- 3. Document Metadata Table (File Tracking)
+-- 3. Document Metadata Table (File Tracking for ETL)
 CREATE TABLE IF NOT EXISTS document_metadata (
     id TEXT PRIMARY KEY, -- Google Drive File ID
     title TEXT,
